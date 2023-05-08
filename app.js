@@ -8,10 +8,10 @@ import puppeteer from 'puppeteer';
     day: "numeric",
     month: "long",
 };
-console.log('time',now.toLocaleDateString("uk-UA",options))
+const formatedToday = now.toLocaleDateString("uk-UA",options)
 
 
-await page.goto('https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp');
+await page.goto('https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript');
 
 await page.setViewport({width: 1080, height: 1024});
 
@@ -29,8 +29,12 @@ const vacancyDate = await element?.evaluate(el => {
       }
     }
   });
+  const vacancyDateTrimmed = vacancyDate.trim()
 
-  console.log(vacancyDate.trim())
+  if (vacancyDateTrimmed === 'сьогодні') {
+    console.log('сьогоднішня ваканція')
+  }
+  console.log('formatedToday', formatedToday)
 
   await browser.close();
 })();
