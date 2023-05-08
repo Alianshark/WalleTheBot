@@ -10,9 +10,16 @@ import puppeteer from 'puppeteer';
 
   const vacancyDateSelector = '.text-date';
   const element = await page.waitForSelector(vacancyDateSelector);
-  const vacancyDate = await element?.evaluate(el => el.innerHTML);
+  const vacancyDate = await element?.evaluate(el => {
+    let iter = document.createNodeIterator(el, NodeFilter.SHOW_TEXT);
+    let textnode;
 
-  console.log(vacancyDate);
+    while (textnode = iter.nextNode()) {
+        return (textnode.textContent)
+    }
+  });
+
+  console.log(vacancyDate.trim())
 
   await browser.close();
 })();
