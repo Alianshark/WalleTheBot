@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import { promises as fs } from 'fs';
 
 (async () => {
   const browser = await puppeteer.launch({headless: false});
@@ -8,10 +9,27 @@ import puppeteer from 'puppeteer';
     day: "numeric",
     month: "long",
 };
-console.log('time',now.toLocaleDateString("uk-UA",options))
+const formatedToday = now.toLocaleDateString("uk-UA",options)
+  //const cookiesString = await fs.readFile('./cookies.json');
+  //const cookies = JSON.parse(cookiesString);
+  //await page.setCookie(...cookies)
+signIn()
+async function  signIn() {
+  await page.goto('https://djinni.co/login?from=frontpage_main');
 
+  await page.type('#email', process.env.email);
+  await page.type('#password', process.env.password);
 
-await page.goto('https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp');
+  const signInButtonSelector =  '.btn-primary';
+  const signInButtonElement = await page.waitForSelector(signInButtonSelector);
+  await page.click(signInButtonSelector);
+
+  const cookies = await page.cookies();
+  console.log(cookies)
+  await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2));
+}
+
+//await page.goto('https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript');
 
 await page.setViewport({width: 1080, height: 1024});
 
@@ -29,9 +47,18 @@ const vacancyDate = await element?.evaluate(el => {
       }
     }
   });
+  const vacancyDateTrimmed = vacancyDate.trim()
 
-  console.log(vacancyDate.trim())
+  if (vacancyDateTrimmed === 'сьогодні') {
+    console.log('сьогоднішня ваканція')
+    const vacancyLinkSelector =  '.profile';
+    const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
+    await page.click(vacancyLinkSelector);
+    
+  }
+  console.log('formatedToday', formatedToday)
 
-  await browser.close();
+  //await browser.close();
+
 })();
 
