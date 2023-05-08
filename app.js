@@ -69,6 +69,11 @@ import { promises as fs } from 'fs';
     const replyButtonSelector =  '.btn-primary';
     const signInButtonElement = await page.waitForSelector(replyButtonSelector);
     await page.click(replyButtonSelector);
+
+    await page.type('#message', 'Hello I am Vall-E, bot who search vacancies');
+
+    await page.type('#linkedin', process.env.linkedin);
+
   }
   console.log('formatedToday', formatedToday)
 

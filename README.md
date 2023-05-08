@@ -21,6 +21,7 @@ Example of .env file:
 ``` 
 export email='your_email@gmail.com'
 export password='your_pass'
+export linkedin='https://www.linkedin.com/in/your-profile/'
 ```
 
 > create account on [Djinni.co](Djinni.co) manualy
@@ -28,6 +29,7 @@ export password='your_pass'
 ### Run the bot
 
 ```
+source .env
 npm install
 npm start
 ```
