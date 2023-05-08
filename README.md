@@ -28,6 +28,7 @@ export password='your_pass'
 ### Run the bot
 
 ```
+source .env
 npm install
 npm start
 ```
