@@ -10,10 +10,18 @@ import { promises as fs } from 'fs';
     month: "long",
   };
   const formatedToday = now.toLocaleDateString("uk-UA",options)
-  const cookiesString = await fs.readFile('./cookies.json');
-  const cookies = JSON.parse(cookiesString);
-  await page.setCookie(...cookies)
-    //signIn()
+  try { 
+    console.log('reading coockies.json')
+    const cookiesString = await fs.readFile('./cookies.json');
+    const cookies = JSON.parse(cookiesString);
+    await page.setCookie(...cookies)
+    console.log('cookies.json read sucsesfull')
+} catch {
+    console.log('cookies.json not found, trying login')
+    await signIn()  
+    console.log('signin sucsess')
+  }
+
   async function  signIn() {
     await page.goto('https://djinni.co/login?from=frontpage_main');
 
@@ -25,9 +33,9 @@ import { promises as fs } from 'fs';
     await page.click(signInButtonSelector);
 
     const cookies = await page.cookies();
-    console.log(cookies)
+
     await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2));
-  }
+}
 
   await page.goto('https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp');
 
@@ -47,15 +55,17 @@ import { promises as fs } from 'fs';
       }
     }
   });
+
   const vacancyDateTrimmed = vacancyDate.trim()
   const isVacancyToday = vacancyDateTrimmed === 'сьогодні';
-
+  
+  console.log('date of the top vacancy',vacancyDateTrimmed);
   if (!isVacancyToday) {
     console.log('Ne сьогоднішня ваканція')
     const vacancyLinkSelector =  '.profile';
     const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
     await page.click(vacancyLinkSelector);
-    
+
     const replyButtonSelector =  '.btn-primary';
     const signInButtonElement = await page.waitForSelector(replyButtonSelector);
     await page.click(replyButtonSelector);
