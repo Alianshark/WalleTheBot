@@ -4,6 +4,8 @@ It's a bot for loocking vacancies
 ## How to start 
 
 ``` 
+git clone git@github.com:Alianshark/WalleTheBot.git
+cd WalleTheBot
 npm install
 npm start
 ```
