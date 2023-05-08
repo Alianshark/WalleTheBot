@@ -1,10 +1,11 @@
 {
   "name": "wallybot",
+  "type": "module",
   "version": "1.0.0",
   "description": "bot for serching and geting vacancies",
   "main": "app.js",
   "scripts": {
-    "start": "git status" 
+    "start": "node app.js" 
   },
   "author": "johnnysalvia@gmail.com",
   "license": "MIT",
