@@ -33,6 +33,9 @@ const vacancyDate = await element?.evaluate(el => {
 
   if (vacancyDateTrimmed === 'сьогодні') {
     console.log('сьогоднішня ваканція')
+    const vacancyLinkSelector =  '.profile';
+    const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
+    await page.click(vacancyLinkSelector);
   }
   console.log('formatedToday', formatedToday)
 
