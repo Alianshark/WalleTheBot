@@ -8,9 +8,11 @@ import puppeteer from 'puppeteer';
 
   await page.setViewport({width: 1080, height: 1024});
 
+  const vacancyDateSelector = '.text-date';
+  const element = await page.waitForSelector(vacancyDateSelector);
+  const vacancyDate = await element?.evaluate(el => el.innerHTML);
 
-
-  console.log('Close Browser');
+  console.log(vacancyDate);
 
   await browser.close();
 })();
