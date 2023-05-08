@@ -72,7 +72,6 @@ import { promises as fs } from 'fs';
 
     await page.type('#message', 'Hello I am Vall-E, bot who search vacancies');
 
-    await page.type('#linkedin', process.env.linkedin);
 
   }
   console.log('formatedToday', formatedToday)
