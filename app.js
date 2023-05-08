@@ -56,6 +56,9 @@ import { promises as fs } from 'fs';
     const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
     await page.click(vacancyLinkSelector);
     
+    const replyButtonSelector =  '.btn-primary';
+    const signInButtonElement = await page.waitForSelector(replyButtonSelector);
+    await page.click(replyButtonSelector);
   }
   console.log('formatedToday', formatedToday)
 
