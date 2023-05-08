@@ -36,3 +36,13 @@ npm start
 After this the chrome-browser will run.
 
 This comand will run from brouser and serch for vacansies.
+
+## Development plan
+- [x] install [https://pptr.dev/](https://pptr.dev/)
+- [x] login to djinni.co 
+- [x] save coockies to file
+- [x] login only if there is no coockies file
+- [x] go to vacancies  page, with filters
+- [x] if not todays vacancy, click on it
+- [x] fill vacancy message input 
+- [x] click apply button 
