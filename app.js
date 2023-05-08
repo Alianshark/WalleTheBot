@@ -10,12 +10,16 @@ import puppeteer from 'puppeteer';
 
   const vacancyDateSelector = '.text-date';
   const element = await page.waitForSelector(vacancyDateSelector);
+  
   const vacancyDate = await element?.evaluate(el => {
-    let iter = document.createNodeIterator(el, NodeFilter.SHOW_TEXT);
-    let textnode;
+    return getFirstNetxNode(el)
+    function getFirstNetxNode(el) {
+      let iter = document.createNodeIterator(el, NodeFilter.SHOW_TEXT);
+      let textnode;
 
-    while (textnode = iter.nextNode()) {
-        return (textnode.textContent)
+      while (textnode = iter.nextNode()) {
+          return (textnode.textContent)
+      }
     }
   });
 
