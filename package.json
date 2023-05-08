@@ -1,0 +1,14 @@
+{
+  "name": "wallybot",
+  "version": "1.0.0",
+  "description": "bot for serching and geting vacancies",
+  "main": "app.js",
+  "scripts": {
+    "start": "git status" 
+  },
+  "author": "johnnysalvia@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^20.1.1"
+  }
+}
