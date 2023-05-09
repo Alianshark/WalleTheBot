@@ -25,10 +25,10 @@ async function runBot() {
     await replyToVacancy(page)
   } catch (error) {
     console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
-    await browser.close()
   }
 
   console.log('formatedToday', formatedToday)
+  await browser.close()
 }
 
 async function signIn(page) {
@@ -74,21 +74,10 @@ async function checkCookies(page) {
   try {
     await readCookies(page)
   } catch {
-    await weAreLogedIn(page)
+    await signIn(page)
   }
 }
 
-async function weAreLogedIn(page) {
-  console.log('cookies.json not found, trying login')
-  const signInReasault = await signIn(page)
-  if (signInReasault) {
-    console.log('signin sucsess')
-  } else {
-    console.log('signin failed')
-    await browser.close()
-    return
-  }
-}
 async function readCookies(page) {
   console.log('reading coockies.json')
   const cookiesString = await fs.readFile('./cookies.json')
