@@ -10,10 +10,11 @@ async function runBot() {
   await goToVacancyWithFilter(page)
   await clickOnFirstVacancy(page)
 
-  try {
-    await checkIfAlreadyAppliedVacancy(page)
-    console.log('already reply on Vacancy')
-  } catch (error) {
+
+  const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
+  if (allreadyAppliedToVacancy) {
+    console.log('Already reply on vacancy')
+  } else {
     try {
       await replyToVacancy(page)
     } catch {
@@ -47,10 +48,15 @@ async function signIn(page) {
 }
 
 async function checkIfAlreadyAppliedVacancy(page) {
-  const replyButtonSelector = 'text/Відкрити діалог з'
-  const signInButtonElement = await page.waitForSelector(replyButtonSelector, {
-    timeout: 5_000,
-  })
+  try{
+    const replyButtonSelector = 'text/Відкрити діалог з'
+    const signInButtonElement = await page.waitForSelector(replyButtonSelector, {
+      timeout: 5_000,
+    })
+    return true
+  } catch {
+    return false
+  }
 }
 
 async function replyToVacancy(page) {
