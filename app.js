@@ -78,8 +78,6 @@ async function runBot() {
   //await browser.close();
 }
 
-runBot()
-
 async function replyToVacancy(page) {
   const replyButtonSelector = 'text/Відгукнутися на вакансію'
   const signInButtonElement = await page.waitForSelector(replyButtonSelector, {
@@ -96,3 +94,5 @@ async function replyToVacancy(page) {
   const checkWorkButtonElement = await page.waitForSelector(jobApplyButton)
   await page.click(jobApplyButton)
 }
+
+runBot()
