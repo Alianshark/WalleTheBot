@@ -15,11 +15,7 @@ async function runBot() {
   if (allreadyAppliedToVacancy) {
     console.log('Already reply on vacancy')
   } else {
-    try {
-      await replyToVacancy(page)
-    } catch {
-      console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
-    }
+    await replyToVacancy(page)
   }
 
   await browser.close()
@@ -60,6 +56,7 @@ async function checkIfAlreadyAppliedVacancy(page) {
 }
 
 async function replyToVacancy(page) {
+  try {
   const replyButtonSelector = 'text/Відгукнутися на вакансію'
   const signInButtonElement = await page.waitForSelector(replyButtonSelector, {
     timeout: 5_000,
@@ -74,6 +71,9 @@ async function replyToVacancy(page) {
   const jobApplyButton = '#job_apply'
   const checkWorkButtonElement = await page.waitForSelector(jobApplyButton)
   await page.click(jobApplyButton)
+  } catch {
+    console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
+  }
 }
 
 async function signInIfNoCookies(page) {
