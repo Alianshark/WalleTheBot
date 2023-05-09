@@ -4,14 +4,11 @@ async function runBot() {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
 
-  await signInIfNoCookies(page)
-  await goToVacancyWithFilter(page)
-
   await page.setViewport({ width: 1080, height: 1024 })
 
-  const vacancyLinkSelector = '.profile'
-  const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector)
-  await page.click(vacancyLinkSelector)
+  await signInIfNoCookies(page)
+  await goToVacancyWithFilter(page)
+  await clickOnFirstVacancy(page)
 
   try {
     await replyToVacancy(page)
@@ -19,7 +16,6 @@ async function runBot() {
     console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
   }
 
-  console.log('formatedToday', formatedToday)
   await browser.close()
 }
 
@@ -82,6 +78,12 @@ async function goToVacancyWithFilter(page) {
   await page.goto(
     'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
   )
+}
+
+async function clickOnFirstVacancy(page) {
+  const vacancyLinkSelector = '.profile'
+  const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector)
+  await page.click(vacancyLinkSelector)
 }
 
 runBot()
