@@ -1,5 +1,7 @@
 import puppeteer from 'puppeteer'
-import { promises as fs } from 'fs'
+import { checkIfAlreadyAppliedVacancy} from './checkIfAlreadyAppliedVacancy.js'
+import { signInIfNoCookies } from './signIn.js'
+
 async function runBot() {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
@@ -21,39 +23,7 @@ async function runBot() {
   await browser.close()
 }
 
-async function signIn(page) {
-  await page.goto('https://djinni.co/login?from=frontpage_main')
 
-  if (process.env.email == undefined) {
-    console.log('Empty email aborting. Use source .env')
-    return false
-  } else {
-    console.log('using email ', process.env.email)
-  }
-  await page.type('#email', process.env.email)
-  await page.type('#password', process.env.password)
-
-  const signInButtonSelector = '.btn-primary'
-  const signInButtonElement = await page.waitForSelector(signInButtonSelector)
-  await page.click(signInButtonSelector)
-
-  const cookies = await page.cookies()
-
-  await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2))
-  return true
-}
-
-async function checkIfAlreadyAppliedVacancy(page) {
-  try{
-    const replyButtonSelector = 'text/Відкрити діалог з'
-    const signInButtonElement = await page.waitForSelector(replyButtonSelector, {
-      timeout: 5_000,
-    })
-    return true
-  } catch {
-    return false
-  }
-}
 
 async function replyToVacancy(page) {
   try {
@@ -76,21 +46,6 @@ async function replyToVacancy(page) {
   }
 }
 
-async function signInIfNoCookies(page) {
-  try {
-    await readCookies(page)
-  } catch {
-    await signIn(page)
-  }
-}
-
-async function readCookies(page) {
-  console.log('reading coockies.json')
-  const cookiesString = await fs.readFile('./cookies.json')
-  const cookies = JSON.parse(cookiesString)
-  await page.setCookie(...cookies)
-  console.log('cookies.json read sucsesfull')
-}
 
 async function goToVacancyWithFilter(page) {
   await page.goto(
