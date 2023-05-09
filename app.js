@@ -60,13 +60,14 @@ import { promises as fs } from 'fs';
   const isVacancyToday = vacancyDateTrimmed === 'сьогодні';
   
   console.log('date of the top vacancy',vacancyDateTrimmed);
-  if (!isVacancyToday) {
+  
     console.log('Ne сьогоднішня ваканція')
     const vacancyLinkSelector =  '.profile';
     const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
     await page.click(vacancyLinkSelector);
 
-    const replyButtonSelector =  '.btn-primary';
+    
+    const replyButtonSelector =  'text/Відгукнутися на вакансію';
     const signInButtonElement = await page.waitForSelector(replyButtonSelector);
     await page.click(replyButtonSelector);
 
@@ -75,7 +76,6 @@ import { promises as fs } from 'fs';
     const jobApplyButton =  '#job_apply';
     const checkWorkButtonElement = await page.waitForSelector(jobApplyButton);
     await page.click(jobApplyButton);
-  }
   console.log('formatedToday', formatedToday)
 
   //await browser.close();
