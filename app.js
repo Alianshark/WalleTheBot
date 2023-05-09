@@ -11,9 +11,14 @@ async function runBot() {
   await clickOnFirstVacancy(page)
 
   try {
-    await replyToVacancy(page)
+    checkIfAlreadyAppliedVacancy(page)
+    console.log('already reply on Vacancy')
   } catch (error) {
-    console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
+    try {
+      await replyToVacancy(page)
+    } catch {
+      console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
+    }
   }
 
   await browser.close()
@@ -39,6 +44,13 @@ async function signIn(page) {
 
   await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2))
   return true
+}
+
+async function checkIfAlreadyAppliedVacancy(page) {
+  const replyButtonSelector = 'text/Відкрити діалог з'
+  const signInButtonElement = await page.waitForSelector(replyButtonSelector, {
+    timeout: 5_000,
+  })
 }
 
 async function replyToVacancy(page) {
