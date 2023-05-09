@@ -1,5 +1,3 @@
-export async function goToVacancyWithFilter(page) {
-    await page.goto(
-      'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
-    )
-  }
+export async function goToVacancyWithFilter(page, url) {
+  await page.goto(url)
+}
