@@ -61,12 +61,17 @@ import { promises as fs } from 'fs';
   
   console.log('date of the top vacancy',vacancyDateTrimmed);
   
-    console.log('Ne сьогоднішня ваканція')
-    const vacancyLinkSelector =  '.profile';
-    const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
-    await page.click(vacancyLinkSelector);
+  console.log('Ne сьогоднішня ваканція')
+  const vacancyLinkSelector =  '.profile';
+  const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
+  await page.click(vacancyLinkSelector);
 
+  try {
     await replyToVacancy(page);
+  } catch (error) {
+    console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
+  }
+
   console.log('formatedToday', formatedToday)
 
   //await browser.close();
@@ -74,6 +79,7 @@ import { promises as fs } from 'fs';
 })();
 
 async function replyToVacancy(page) {
+
   const replyButtonSelector = 'text/Відгукнутися на вакансію';
   const signInButtonElement = await page.waitForSelector(replyButtonSelector);
   await page.click(replyButtonSelector);
