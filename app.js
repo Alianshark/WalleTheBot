@@ -5,10 +5,7 @@ async function runBot() {
   const page = await browser.newPage()
 
   await signInIfNoCookies(page)
-
-  await page.goto(
-    'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
-  )
+  await goToVacancyWithFilter(page)
 
   await page.setViewport({ width: 1080, height: 1024 })
 
@@ -79,6 +76,12 @@ async function readCookies(page) {
   const cookies = JSON.parse(cookiesString)
   await page.setCookie(...cookies)
   console.log('cookies.json read sucsesfull')
+}
+
+async function goToVacancyWithFilter(page) {
+  await page.goto(
+    'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
+  )
 }
 
 runBot()
