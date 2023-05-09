@@ -9,24 +9,7 @@ async function runBot() {
     month: 'long',
   }
   const formatedToday = now.toLocaleDateString('uk-UA', options)
-  try {
-    console.log('reading coockies.json')
-    const cookiesString = await fs.readFile('./cookies.json')
-    const cookies = JSON.parse(cookiesString)
-    await page.setCookie(...cookies)
-    console.log('cookies.json read sucsesfull')
-  } catch {
-    console.log('cookies.json not found, trying login')
-    const signInReasault = await signIn(page)
-
-    if (signInReasault) {
-      console.log('signin sucsess')
-    } else {
-      console.log('signin failed')
-      await browser.close()
-      return
-    }
-  }
+  await checkCookies()
 
   await page.goto(
     'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
@@ -85,6 +68,26 @@ async function replyToVacancy(page) {
   const jobApplyButton = '#job_apply'
   const checkWorkButtonElement = await page.waitForSelector(jobApplyButton)
   await page.click(jobApplyButton)
+}
+
+async function checkCookies() {
+  try {
+    console.log('reading coockies.json')
+    const cookiesString = await fs.readFile('./cookies.json')
+    const cookies = JSON.parse(cookiesString)
+    await page.setCookie(...cookies)
+    console.log('cookies.json read sucsesfull')
+  } catch {
+    console.log('cookies.json not found, trying login')
+    const signInReasault = await signIn(page)
+    if (signInReasault) {
+      console.log('signin sucsess')
+    } else {
+      console.log('signin failed')
+      await browser.close()
+      return
+    }
+  }
 }
 
 runBot()
