@@ -42,11 +42,10 @@ async function runBot() {
     await replyToVacancy(page)
   } catch (error) {
     console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
-    //setTimeout(runBot, 3000)
+    await browser.close()
   }
 
   console.log('formatedToday', formatedToday)
-  //await browser.close();
 }
 
 async function signIn(page) {
