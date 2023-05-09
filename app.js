@@ -74,18 +74,21 @@ async function checkCookies(page) {
   try {
     await readCookies(page)
   } catch {
-    console.log('cookies.json not found, trying login')
-    const signInReasault = await signIn(page)
-    if (signInReasault) {
-      console.log('signin sucsess')
-    } else {
-      console.log('signin failed')
-      await browser.close()
-      return
-    }
+    await weAreLogedIn(page)
   }
 }
 
+async function weAreLogedIn(page) {
+  console.log('cookies.json not found, trying login')
+  const signInReasault = await signIn(page)
+  if (signInReasault) {
+    console.log('signin sucsess')
+  } else {
+    console.log('signin failed')
+    await browser.close()
+    return
+  }
+}
 async function readCookies(page) {
   console.log('reading coockies.json')
   const cookiesString = await fs.readFile('./cookies.json')
