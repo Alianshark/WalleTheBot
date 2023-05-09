@@ -1,9 +1,12 @@
 # Walle Bot
+
 It's a bot for loocking vacancies
 
-## How to start 
+## How to start
+
 ### Clone the repository
-``` 
+
+```
 git clone git@github.com:Alianshark/WalleTheBot.git
 cd WalleTheBot
 ```
@@ -11,14 +14,14 @@ cd WalleTheBot
 ### Create `.env` file to set your pass
 
 ```
-touch .env 
+touch .env
 ```
 
 ### Add to .env file your djinni email and password
 
 Example of .env file:
 
-``` 
+```
 export email='your_email@gmail.com'
 export password='your_pass'
 ```
@@ -38,16 +41,21 @@ After this the chrome-browser will run.
 This comand will run from brouser and serch for vacansies.
 
 ## Code style formatter
-In vs code settings set prettier config file to `.prettierrc.json` 
- 
+
+In vs code settings set prettier config file to `.prettierrc.json`
+
 ![how to configure vscode prettier](img/vscodePrettierConfig.png)
 
 ## Development plan
+
 - [x] install [https://pptr.dev/](https://pptr.dev/)
-- [x] login to djinni.co 
+- [x] login to djinni.co
 - [x] save coockies to file
 - [x] login only if there is no coockies file
-- [x] go to vacancies  page, with filters
-- [x] if not todays vacancy, click on it
-- [x] fill vacancy message input 
-- [x] click apply button 
+- [x] go to vacancies page, with filters
+- [x] fill vacancy message input
+- [x] click apply button
+- [x] if already applied on vacancy do nothing
+- [ ] add an option to run every houre(any period of time) searching mode
+- [ ] apply more filters for searching vacancy
+- [ ] add posibbility to apply on more than one vacancies
