@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer'
 import { promises as fs } from 'fs'
-;(async () => {
+async function runBot() {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
   const now = new Date()
@@ -76,7 +76,9 @@ import { promises as fs } from 'fs'
   console.log('formatedToday', formatedToday)
 
   //await browser.close();
-})()
+}
+
+runBot()
 
 async function replyToVacancy(page) {
   const replyButtonSelector = 'text/Відгукнутися на вакансію'
