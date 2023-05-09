@@ -17,23 +17,15 @@ async function runBot() {
     console.log('cookies.json read sucsesfull')
   } catch {
     console.log('cookies.json not found, trying login')
-    await signIn()
-    console.log('signin sucsess')
-  }
+    const signInReasault = await signIn(page)
 
-  async function signIn() {
-    await page.goto('https://djinni.co/login?from=frontpage_main')
-
-    await page.type('#email', process.env.email)
-    await page.type('#password', process.env.password)
-
-    const signInButtonSelector = '.btn-primary'
-    const signInButtonElement = await page.waitForSelector(signInButtonSelector)
-    await page.click(signInButtonSelector)
-
-    const cookies = await page.cookies()
-
-    await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2))
+    if (signInReasault) {
+      console.log('signin sucsess')
+    } else {
+      console.log('signin failed')
+      await browser.close()
+      return
+    }
   }
 
   await page.goto(
@@ -74,8 +66,29 @@ async function runBot() {
   }
 
   console.log('formatedToday', formatedToday)
-
   //await browser.close();
+}
+
+async function signIn(page) {
+  await page.goto('https://djinni.co/login?from=frontpage_main')
+
+  if (process.env.email == undefined) {
+    console.log('Empty email aborting. Use source .env')
+    return false
+  } else {
+    console.log('using email ', process.env.email)
+  }
+  await page.type('#email', process.env.email)
+  await page.type('#password', process.env.password)
+
+  const signInButtonSelector = '.btn-primary'
+  const signInButtonElement = await page.waitForSelector(signInButtonSelector)
+  await page.click(signInButtonSelector)
+
+  const cookies = await page.cookies()
+
+  await fs.writeFile('./cookies.json', JSON.stringify(cookies, null, 2))
+  return true
 }
 
 async function replyToVacancy(page) {
