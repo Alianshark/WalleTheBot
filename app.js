@@ -9,7 +9,7 @@ async function runBot() {
     month: 'long',
   }
   const formatedToday = now.toLocaleDateString('uk-UA', options)
-  await checkCookies(page)
+  await signInIfNoCookies(page)
 
   await page.goto(
     'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
@@ -70,7 +70,7 @@ async function replyToVacancy(page) {
   await page.click(jobApplyButton)
 }
 
-async function checkCookies(page) {
+async function signInIfNoCookies(page) {
   try {
     await readCookies(page)
   } catch {
