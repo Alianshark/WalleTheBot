@@ -3,6 +3,7 @@ import { checkIfAlreadyAppliedVacancy } from './checkIfAlreadyAppliedVacancy.js'
 import { signInIfNoCookies } from './signIn.js'
 import { goToVacancyWithFilter } from './filter.js'
 import { replyToVacancy, clickOnFirstVacancy } from './vacancy.js'
+import 'dotenv/config'
 
 async function runBot() {
   const browser = await puppeteer.launch({ headless: false })
