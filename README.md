@@ -37,6 +37,11 @@ After this the chrome-browser will run.
 
 This comand will run from brouser and serch for vacansies.
 
+## Code style formatter
+In vs code settings set prettier config file to `.prettierrc.json` 
+ 
+![how to configure vscode prettier](img/vscodePrettierConfig.png)
+
 ## Development plan
 - [x] install [https://pptr.dev/](https://pptr.dev/)
 - [x] login to djinni.co 
