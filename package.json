@@ -5,7 +5,7 @@
   "description": "bot for serching and geting vacancies",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js" 
+    "start": "node app.js >> log.txt"
   },
   "author": "johnnysalvia@gmail.com",
   "license": "MIT",
