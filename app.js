@@ -3,12 +3,7 @@ import { promises as fs } from 'fs'
 async function runBot() {
   const browser = await puppeteer.launch({ headless: false })
   const page = await browser.newPage()
-  const now = new Date()
-  var options = {
-    day: 'numeric',
-    month: 'long',
-  }
-  const formatedToday = now.toLocaleDateString('uk-UA', options)
+
   await signInIfNoCookies(page)
 
   await page.goto(
