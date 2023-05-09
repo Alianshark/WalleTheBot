@@ -11,7 +11,7 @@ async function runBot() {
   await clickOnFirstVacancy(page)
 
   try {
-    checkIfAlreadyAppliedVacancy(page)
+    await checkIfAlreadyAppliedVacancy(page)
     console.log('already reply on Vacancy')
   } catch (error) {
     try {
