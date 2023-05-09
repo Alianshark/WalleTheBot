@@ -34,27 +34,6 @@ async function runBot() {
 
   await page.setViewport({ width: 1080, height: 1024 })
 
-  const vacancyDateSelector = '.text-date'
-  const element = await page.waitForSelector(vacancyDateSelector)
-
-  const vacancyDate = await element?.evaluate((el) => {
-    return getFirstNetxNode(el)
-    function getFirstNetxNode(el) {
-      let iter = document.createNodeIterator(el, NodeFilter.SHOW_TEXT)
-      let textnode
-
-      while ((textnode = iter.nextNode())) {
-        return textnode.textContent
-      }
-    }
-  })
-
-  const vacancyDateTrimmed = vacancyDate.trim()
-  const isVacancyToday = vacancyDateTrimmed === 'сьогодні'
-
-  console.log('date of the top vacancy', vacancyDateTrimmed)
-
-  console.log('Ne сьогоднішня ваканція')
   const vacancyLinkSelector = '.profile'
   const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector)
   await page.click(vacancyLinkSelector)
@@ -63,6 +42,7 @@ async function runBot() {
     await replyToVacancy(page)
   } catch (error) {
     console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
+    //setTimeout(runBot, 3000)
   }
 
   console.log('formatedToday', formatedToday)
