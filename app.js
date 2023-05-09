@@ -26,6 +26,7 @@ async function runBot() {
   }
 
   await browser.close()
+  setTimeout(runBot, 20_000)
 }
 
 runBot()

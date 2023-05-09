@@ -55,6 +55,9 @@ In vs code settings set prettier config file to `.prettierrc.json`
 - [x] fill vacancy message input
 - [x] click apply button
 - [x] if already applied on vacancy do nothing
+- [x] refactor code : splite `app.js` into multiple files
+- [x] refactor code: splite into multiple function
+- [x] save console output to `log.txt` file
 - [ ] add an option to run every houre(any period of time) searching mode
 - [ ] apply more filters for searching vacancy
 - [ ] add posibbility to apply on more than one vacancies
