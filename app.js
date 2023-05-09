@@ -9,7 +9,7 @@ async function runBot() {
     month: 'long',
   }
   const formatedToday = now.toLocaleDateString('uk-UA', options)
-  await checkCookies()
+  await checkCookies(page)
 
   await page.goto(
     'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp'
@@ -70,13 +70,9 @@ async function replyToVacancy(page) {
   await page.click(jobApplyButton)
 }
 
-async function checkCookies() {
+async function checkCookies(page) {
   try {
-    console.log('reading coockies.json')
-    const cookiesString = await fs.readFile('./cookies.json')
-    const cookies = JSON.parse(cookiesString)
-    await page.setCookie(...cookies)
-    console.log('cookies.json read sucsesfull')
+    await readCookies(page)
   } catch {
     console.log('cookies.json not found, trying login')
     const signInReasault = await signIn(page)
@@ -88,6 +84,14 @@ async function checkCookies() {
       return
     }
   }
+}
+
+async function readCookies(page) {
+  console.log('reading coockies.json')
+  const cookiesString = await fs.readFile('./cookies.json')
+  const cookies = JSON.parse(cookiesString)
+  await page.setCookie(...cookies)
+  console.log('cookies.json read sucsesfull')
 }
 
 runBot()
