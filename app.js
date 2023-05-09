@@ -66,6 +66,7 @@ import { promises as fs } from 'fs';
   const vacansyLinkElement = await page.waitForSelector(vacancyLinkSelector);
   await page.click(vacancyLinkSelector);
 
+
   try {
     await replyToVacancy(page);
   } catch (error) {
@@ -81,7 +82,7 @@ import { promises as fs } from 'fs';
 async function replyToVacancy(page) {
 
   const replyButtonSelector = 'text/Відгукнутися на вакансію';
-  const signInButtonElement = await page.waitForSelector(replyButtonSelector);
+  const signInButtonElement = await page.waitForSelector(replyButtonSelector, {timeout : 5_000});
   await page.click(replyButtonSelector);
 
   await page.type('#message', 'Hello I am Wall-E, bot who search vacancies. I am glad to write you. My author is looking for job');
