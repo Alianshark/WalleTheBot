@@ -1,7 +1,7 @@
 import puppeteer from 'puppeteer'
 import { checkIfAlreadyAppliedVacancy } from './checkIfAlreadyAppliedVacancy.js'
 import { signInIfNoCookies } from './signIn.js'
-import { goToVacancyWithFilter } from './filter.js'
+import { filterUrls } from './filter.js'
 import { replyToVacancy, clickOnFirstVacancy } from './vacancy.js'
 import { delay } from './delay.js'
 import 'dotenv/config'
@@ -36,13 +36,10 @@ async function runBot(url) {
   setTimeout(runBotForEachUrl, 60_000)
 }
 
-const urls = [
-  'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp',
-  'https://djinni.co/jobs/?location=kyiv&region=UKR&keywords=react&all-keywords=&any-of-keywords=&exclude-keywords=&exp_level=no_exp',
-]
+
 
 async function runBotForEachUrl() {
-  for (const url of urls) {
+  for (const url of filterUrls) {
     await runBot(url)
     await delay(20_000);
     console.log('')
