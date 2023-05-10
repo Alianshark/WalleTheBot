@@ -26,14 +26,14 @@ async function runBot(url) {
   console.log(`successfull click vacancy`)
 
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
-  console.log(`already apply to vacancy: `, allreadyAppliedToVacancy)
+  console.log(`send resume on the vacancy: `, !allreadyAppliedToVacancy)
   if (!allreadyAppliedToVacancy) {
     await replyToVacancy(page)
   }
 
   await browser.close()
-
-  setTimeout(runBotForEachUrl, 120_000)
+  
+  
 }
 
 
@@ -42,7 +42,9 @@ async function runBotForEachUrl() {
   for (const url of filterUrls) {
     await runBot(url)
     await delay(30_000);
-    console.log('')
+    console.log('\n')
   }
+  await delay( 60_000)
+  await runBotForEachUrl()
 }
 runBotForEachUrl()
