@@ -14,17 +14,19 @@ async function runBot(url) {
   console.log('Date of bot run:', today.toLocaleString())
 
   await page.setViewport({ width: 1080, height: 1024 })
+
   await signInIfNoCookies(page)
   console.log(`Successfull signIn or using cookies`)
+
   await page.goto(url)
   console.log(`successfully opened url: ${url}`)
-  /*
-  
-  
-  
+
   await clickOnFirstVacancy(page)
-  
+  console.log(`successfull click vacancy`)
+
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
+  console.log(`already apply to vacancy: `, allreadyAppliedToVacancy)
+  /*
   if (allreadyAppliedToVacancy) {
     console.log('Already reply on vacancy')
   } else {
