@@ -3,12 +3,13 @@ import { checkIfAlreadyAppliedVacancy } from './checkIfAlreadyAppliedVacancy.js'
 import { signInIfNoCookies } from './signIn.js'
 import { goToVacancyWithFilter } from './filter.js'
 import { replyToVacancy, clickOnFirstVacancy } from './vacancy.js'
+import { delay } from './delay.js'
 import 'dotenv/config'
 
 async function runBot(url) {
   console.log(`--- Hello to you, I'am a runBot Function ---`)
   console.log(`url: ${url}`)
-  const browser = await puppeteer.launch({ headless: false })
+  const browser = await puppeteer.launch({ headless: true })
   const page = await browser.newPage()
   const today = new Date()
   console.log('Date of bot run:', today.toLocaleString())
@@ -30,9 +31,9 @@ async function runBot(url) {
     await replyToVacancy(page)
   }
 
-  //await browser.close()
+  await browser.close()
 
-  //setTimeout(runBotForEachUrl, 20_000)
+  setTimeout(runBotForEachUrl, 60_000)
 }
 
 const urls = [
@@ -43,6 +44,7 @@ const urls = [
 async function runBotForEachUrl() {
   for (const url of urls) {
     await runBot(url)
+    await delay(20_000);
     console.log('')
   }
 }
