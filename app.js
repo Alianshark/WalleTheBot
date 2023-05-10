@@ -33,7 +33,7 @@ async function runBot(url) {
 
   await browser.close()
 
-  setTimeout(runBotForEachUrl, 60_000)
+  setTimeout(runBotForEachUrl, 120_000)
 }
 
 
@@ -41,7 +41,7 @@ async function runBot(url) {
 async function runBotForEachUrl() {
   for (const url of filterUrls) {
     await runBot(url)
-    await delay(20_000);
+    await delay(30_000);
     console.log('')
   }
 }

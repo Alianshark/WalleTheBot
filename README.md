@@ -59,5 +59,5 @@ In vs code settings set prettier config file to `.prettierrc.json`
 - [x] refactor code: splite into multiple function
 - [x] save console output to `log.txt` file
 - [x] check vacancy every 20 sec
-- [ ] apply more filters for searching vacancy
+- [x] apply more filters for searching vacancy
 - [ ] add posibbility to apply on more than one vacancies
