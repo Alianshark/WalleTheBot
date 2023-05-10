@@ -4,6 +4,7 @@ export async function signInIfNoCookies(page) {
   try {
     await readCookies(page)
   } catch {
+    console.log(`Cookies read fail, signIn via web interface`)
     await signIn(page)
   }
 }
