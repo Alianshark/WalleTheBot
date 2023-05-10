@@ -1,7 +1,7 @@
 export async function replyToVacancy(page) {
   try {
     console.log(`try to reply vacancy`)
-    const replyButtonSelector = 'text/Відгукнутися на вакансію'
+    const replyButtonSelector = '.js-inbox-toggle-reply-form'
     const signInButtonElement = await page.waitForSelector(
       replyButtonSelector,
       {
