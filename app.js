@@ -14,11 +14,12 @@ async function runBot(url) {
   console.log('Date of bot run:', today.toLocaleString())
 
   await page.setViewport({ width: 1080, height: 1024 })
+  await page.goto(url)
+  console.log(`successfully opened url: ${url}`)
   /*
   
   await signInIfNoCookies(page)
   
-  await page.goto(url)
   
   await clickOnFirstVacancy(page)
   
