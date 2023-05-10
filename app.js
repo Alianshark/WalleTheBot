@@ -26,9 +26,7 @@ async function runBot(url) {
 
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
   console.log(`already apply to vacancy: `, allreadyAppliedToVacancy)
-  if (allreadyAppliedToVacancy) {
-    console.log('Already reply on vacancy')
-  } else {
+  if (!allreadyAppliedToVacancy) {
     await replyToVacancy(page)
   }
 
