@@ -1,5 +1,6 @@
 export async function replyToVacancy(page) {
   try {
+    console.log(`try to reply vacancy`)
     const replyButtonSelector = 'text/Відгукнутися на вакансію'
     const signInButtonElement = await page.waitForSelector(
       replyButtonSelector,
@@ -7,8 +8,10 @@ export async function replyToVacancy(page) {
         timeout: 5_000,
       }
     )
+    console.log(`found signIn button`, signInButtonElement)
     await page.click(replyButtonSelector)
-
+    console.log(`successfully click on reply button`)
+    /*
     await page.type(
       '#message',
       `Dear Hiring Manager,
@@ -44,10 +47,14 @@ export async function replyToVacancy(page) {
       
       Ivan Andryevskiy`
     )
+    console.log(`successfully type in text on vacancy page`)
+    */
 
+    /*
     const jobApplyButton = '#job_apply'
     const checkWorkButtonElement = await page.waitForSelector(jobApplyButton)
     await page.click(jobApplyButton)
+    */
   } catch (error) {
     console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
   }

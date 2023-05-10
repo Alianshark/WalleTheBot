@@ -26,14 +26,13 @@ async function runBot(url) {
 
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
   console.log(`already apply to vacancy: `, allreadyAppliedToVacancy)
-  /*
   if (allreadyAppliedToVacancy) {
     console.log('Already reply on vacancy')
   } else {
     await replyToVacancy(page)
   }
-  */
-  await browser.close()
+
+  //await browser.close()
 
   //setTimeout(runBotForEachUrl, 20_000)
 }
