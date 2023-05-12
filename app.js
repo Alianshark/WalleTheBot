@@ -37,7 +37,13 @@ async function runBot(url) {
 async function runBotForEachUrl() {
   console.log('[run Bot for Each url]')
   for (const url of filterUrls) {
+    try{
     await runBot(url)
+    } catch (error) {
+      console.log('** Error, but continue. Date:', new Date().toLocaleString(), '. See error.log **')
+      console.error('Error date', new Date().toLocaleString())
+      console.error(error + '\n')
+    }
     await randomDelay(30_000)
     console.log('\n')
   }

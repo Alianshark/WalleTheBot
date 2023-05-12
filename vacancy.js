@@ -22,7 +22,7 @@ export async function replyToVacancy(page) {
     console.log(`SUCCESSFULLY CLICK ON JOB APPLY BUTTON`)
 
   } catch (error) {
-    console.log('Не вдалось відгукнутись на ваканцію. Error: ', error)
+    console.log('Не вдалось відгукнутись на ваканцію.')
   }
 }
 
