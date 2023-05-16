@@ -48,7 +48,7 @@ async function runBotForEachUrl() {
     console.log('\n')
   }
   console.log('pausing before running new loop')
-  await randomDelay(60_000)
+  await randomDelay(100_000)
   console.log('[End loop]\n')
   await runBotForEachUrl()
 }
