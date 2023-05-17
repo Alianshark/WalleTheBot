@@ -41,7 +41,8 @@ async function runBotForEachUrl() {
     await runBot(url)
     } catch (error) {
       console.log('** Error, but continue. Date:', new Date().toLocaleString(), '. See error.log **')
-      console.error('Error date', new Date().toLocaleString())
+      console.error('Error. Date', new Date().toLocaleString())
+      console.error('Url: ', url)
       console.error(error + '\n')
     }
     await randomDelay(30_000)
