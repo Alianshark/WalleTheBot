@@ -1,14 +1,15 @@
 import puppeteer from 'puppeteer'
 import { checkIfAlreadyAppliedVacancy } from './checkIfAlreadyAppliedVacancy.js'
 import { signInIfNoCookies } from './signIn.js'
-import { goToVacancyWithFilter } from './filter.js'
+import { filterUrls } from './filter.js'
 import { replyToVacancy, clickOnFirstVacancy } from './vacancy.js'
+import { randomDelay } from './delay.js'
 import 'dotenv/config'
 
 async function runBot(url) {
   console.log(`--- Hello to you, I'am a runBot Function ---`)
   console.log(`url: ${url}`)
-  const browser = await puppeteer.launch({ headless: false })
+  const browser = await puppeteer.launch({ headless: 'new' })
   const page = await browser.newPage()
   const today = new Date()
   console.log('Date of bot run:', today.toLocaleString())
@@ -25,27 +26,35 @@ async function runBot(url) {
   console.log(`successfull click vacancy`)
 
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
-  console.log(`already apply to vacancy: `, allreadyAppliedToVacancy)
-  if (allreadyAppliedToVacancy) {
-    console.log('Already reply on vacancy')
-  } else {
-    await replyToVacancy(page)
+  console.log(`send resume on the vacancy: `, !allreadyAppliedToVacancy)
+  if (!allreadyAppliedToVacancy) {
+    await replyToVacancy(page, url)
   }
 
-  //await browser.close()
-
-  //setTimeout(runBotForEachUrl, 20_000)
+  await browser.close()
 }
 
-const urls = [
-  'https://djinni.co/jobs/?location=kyiv&region=UKR&primary_keyword=JavaScript&exp_level=no_exp',
-  'https://djinni.co/jobs/?location=kyiv&region=UKR&keywords=react&all-keywords=&any-of-keywords=&exclude-keywords=&exp_level=no_exp',
-]
-
 async function runBotForEachUrl() {
-  for (const url of urls) {
-    await runBot(url)
-    console.log('')
+  console.log('[run Bot for Each url]')
+  for (const url of filterUrls) {
+    try {
+      await runBot(url)
+    } catch (error) {
+      console.log(
+        '** Error, but continue. Date:',
+        new Date().toLocaleString(),
+        '. See error.log **'
+      )
+      console.error('Error. Date', new Date().toLocaleString())
+      console.error('Url: ', url)
+      console.error(error + '\n')
+    }
+    await randomDelay(30_000)
+    console.log('\n')
   }
+  console.log('pausing before running new loop')
+  await randomDelay(100_000)
+  console.log('[End loop]\n')
+  await runBotForEachUrl()
 }
 runBotForEachUrl()

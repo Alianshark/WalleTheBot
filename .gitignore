@@ -3,3 +3,4 @@ package-lock.json
 cookies.json
 .env
 log.txt
+error.txt
