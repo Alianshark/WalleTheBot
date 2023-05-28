@@ -1,10 +1,11 @@
 import { appendFile } from 'node:fs/promises';
 
 export async function saveApplyVacancySuccsess(url) {
+    const today = new Date().toLocaleString()
   try {
     await appendFile(
       './applyVacancy.txt',
-      `SUCCESSFULLY CLICK ON JOB APPLY BUTTON, \n ${url} \n`
+      `\nApply vacancy:\n${url}\nDate:${today}\n `
     )
   } catch (error) {
     console.error('there was an error:', error.message)
