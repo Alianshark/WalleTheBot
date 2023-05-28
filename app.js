@@ -28,7 +28,7 @@ async function runBot(url) {
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
   console.log(`send resume on the vacancy: `, !allreadyAppliedToVacancy)
   if (!allreadyAppliedToVacancy) {
-    await replyToVacancy(page)
+    await replyToVacancy(page, url)
   }
 
   await browser.close()
@@ -37,10 +37,14 @@ async function runBot(url) {
 async function runBotForEachUrl() {
   console.log('[run Bot for Each url]')
   for (const url of filterUrls) {
-    try{
-    await runBot(url)
+    try {
+      await runBot(url)
     } catch (error) {
-      console.log('** Error, but continue. Date:', new Date().toLocaleString(), '. See error.log **')
+      console.log(
+        '** Error, but continue. Date:',
+        new Date().toLocaleString(),
+        '. See error.log **'
+      )
       console.error('Error. Date', new Date().toLocaleString())
       console.error('Url: ', url)
       console.error(error + '\n')

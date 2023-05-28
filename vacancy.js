@@ -1,5 +1,7 @@
-import { message } from "./message.js"
-export async function replyToVacancy(page) {
+import { message } from './message.js'
+import { saveApplyVacancySuccsess } from './log.js'
+
+export async function replyToVacancy(page, url) {
   try {
     console.log(`try to reply vacancy`)
     const replyButtonSelector = '.js-inbox-toggle-reply-form'
@@ -15,12 +17,12 @@ export async function replyToVacancy(page) {
 
     await page.type('#message', message)
     console.log(`successfully type in text on vacancy page`)
-    
+
     const jobApplyButton = '#job_apply'
     const checkWorkButtonElement = await page.waitForSelector(jobApplyButton)
     await page.click(jobApplyButton)
     console.log(`SUCCESSFULLY CLICK ON JOB APPLY BUTTON`)
-
+    await saveApplyVacancySuccsess(url)
   } catch (error) {
     console.log('Не вдалось відгукнутись на ваканцію.')
   }
