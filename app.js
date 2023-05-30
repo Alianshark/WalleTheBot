@@ -5,6 +5,7 @@ import { filterUrls } from './filter.js'
 import { replyToVacancy, clickOnFirstVacancy } from './vacancy.js'
 import { randomDelay } from './delay.js'
 import 'dotenv/config'
+import { saveApplyVacancySuccsess } from './log.js'
 
 async function runBot(url) {
   console.log(`--- Hello to you, I'am a runBot Function ---`)
@@ -21,6 +22,8 @@ async function runBot(url) {
 
   await page.goto(url)
   console.log(`successfully opened url: ${url}`)
+
+  await saveApplyVacancySuccsess(url)
 
   await clickOnFirstVacancy(page)
   console.log(`successfull click vacancy`)
