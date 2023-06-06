@@ -28,6 +28,11 @@ async function runBot(url) {
   await clickOnFirstVacancy(page)
   console.log(`successfull click vacancy`)
 
+  const peopleFillSelector = '.bi-people-fill'
+  const peopleFillSelectorElement = await page.waitForSelector(peopleFillSelector)
+  console.log(peopleFillSelectorElement)
+
+
   const allreadyAppliedToVacancy = await checkIfAlreadyAppliedVacancy(page)
   console.log(`send resume on the vacancy: `, !allreadyAppliedToVacancy)
   if (!allreadyAppliedToVacancy) {
