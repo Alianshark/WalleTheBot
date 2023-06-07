@@ -23,8 +23,6 @@ async function runBot(url) {
   await page.goto(url)
   console.log(`successfully opened url: ${url}`)
 
-  await saveApplyVacancySuccsess(url)
-
   await clickOnFirstVacancy(page)
   console.log(`successfull click vacancy`)
 
